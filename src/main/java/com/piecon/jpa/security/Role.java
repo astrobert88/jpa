@@ -22,7 +22,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue
     private Long id;
 
-    @Column(length = 50)
+    @Column(unique = true, nullable = false, length = 50)
     private String authority;
 
 }
