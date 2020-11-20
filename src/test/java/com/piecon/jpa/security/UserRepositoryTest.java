@@ -15,8 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-// Uncomment if want to test against embedded (H2) database
-//@DataJpaTest
 @SpringBootTest
 @Slf4j
 @AutoConfigureTestDatabase
@@ -46,6 +44,7 @@ public class UserRepositoryTest {
     public void finalise() {
         // After each test, delete entries in user and role tables
         log.info("finalise()");
+
         userRepository.deleteAll();
         userRepository.flush();
         roleRepository.deleteAll();

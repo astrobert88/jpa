@@ -2,7 +2,6 @@ package com.piecon.jpa.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @Entity
-public class User implements UserDetails {
+public class User {//implements UserDetails {
 
     public User(String username, String password, boolean enabled,
                 boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
