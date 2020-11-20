@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This file must be called logback.xml if you want Spring to load it automatically so don't change the name.
+    Logback libraries are included in Spring starter projects so no need to add to pom.xml in your own projects.
+    In your classes, use org.slf4j.Logger to decouple your application from the actual logging framework used at runtime.
+-->
+<configuration>
+
+    <!-- Logging to console -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- Log everything at INFO level -->
+    <root level="info">
+        <appender-ref ref="Console"/>
+    </root>
+
+<!--
+    <logger name="org.springframework.transaction" level="trace"/>
+-->
+
+</configuration>

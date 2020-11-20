@@ -4,12 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -17,6 +19,7 @@ import java.util.List;
 //@DataJpaTest
 @SpringBootTest
 @Slf4j
+@AutoConfigureTestDatabase
 public class UserRepositoryTest {
 
     @Autowired
@@ -44,9 +47,9 @@ public class UserRepositoryTest {
         // After each test, delete entries in user and role tables
         log.info("finalise()");
         userRepository.deleteAll();
-        userRepository.flush();;
+        userRepository.flush();
         roleRepository.deleteAll();
-        userRepository.flush();;
+        userRepository.flush();
     }
 
     @Test
@@ -115,9 +118,7 @@ public class UserRepositoryTest {
 
         // Try and save another user with username Root
         User root2 = new User("Root", "rootpwd", true, true, true, true);
-        Assert.assertThrows(DataIntegrityViolationException.class, () -> {
-            userRepository.saveAndFlush(root2);
-        });
+        Assert.assertThrows(DataIntegrityViolationException.class, () -> userRepository.saveAndFlush(root2));
     }
 
     @Test
@@ -129,7 +130,7 @@ public class UserRepositoryTest {
         roleRepository.saveAndFlush(ROLE_USER);
 
         User user = new User("User", "password", true, true, true, true);
-        user.setAuthorities(Arrays.asList(ROLE_USER));
+        user.setAuthorities(Collections.singletonList(ROLE_USER));
         userRepository.saveAndFlush(user);
 
         List<User> users = userRepository.findAll();
@@ -183,7 +184,7 @@ public class UserRepositoryTest {
         admin.setAuthorities(Arrays.asList(ROLE_ADMIN, ROLE_USER));
         userRepository.save(admin);
         User user = new User("User", "userpwd", true, true, true, true);
-        user.setAuthorities(Arrays.asList(ROLE_USER));
+        user.setAuthorities(Collections.singletonList(ROLE_USER));
         userRepository.saveAndFlush(user);
 
         // Check them

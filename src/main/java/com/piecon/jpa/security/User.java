@@ -25,7 +25,7 @@ public class User implements UserDetails {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(unique = true, nullable = false, length = 50)
@@ -40,7 +40,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> authorities = new ArrayList<Role>();
+    private Collection<Role> authorities = new ArrayList<>();
 
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;

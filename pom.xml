@@ -11,8 +11,8 @@
     <groupId>com.piecon</groupId>
     <artifactId>jpa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jpa</name>
-    <description>JPA</description>
+    <name>jpa-security</name>
+    <description>JPA-security</description>
 
     <properties>
         <java.version>11</java.version>
@@ -36,13 +36,11 @@
         </dependency>
 
         <!-- Specify database to use -->
-<!--
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
--->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
