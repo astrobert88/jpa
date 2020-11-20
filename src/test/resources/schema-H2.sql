@@ -1,12 +1,7 @@
--- This schema is H2 syntax specific
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS role;
-DROP TABLE IF EXISTS users_roles;
-DROP TABLE IF EXISTS hibernate_sequence;
-DROP SEQUENCE IF EXISTS HIBERNATE_SEQUENCE;
-
+-- Used by in-memory H2 database for testing only.
+-- No need to drop tables since the database is created and destroyed every time.
 CREATE TABLE user (
-	id                      BIGINT(20) NOT NULL auto_increment,
+	id                      BIGINT(20) NOT NULL,
 	account_non_expired     BIT(1) NOT NULL,
 	account_non_locked      BIT(1) NOT NULL,
 	credentials_non_expired BIT(1) NOT NULL,
@@ -19,7 +14,7 @@ CREATE TABLE user (
 CREATE INDEX ux_username ON user(username);
 
 CREATE TABLE role (
-	id          BIGINT(20) NOT NULL auto_increment,
+	id          BIGINT(20) NOT NULL,
 	authority   VARCHAR(50) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (authority)
@@ -33,6 +28,9 @@ CREATE TABLE users_roles (
 CREATE INDEX ix_user_id ON users_roles(user_id);
 CREATE INDEX ix_role_id ON users_roles(role_id);
 
+-- Need to create the standard sequence HIBERNATE_SEQUENCE since we are using this schema.sql script instead of letting
+-- Hibernate create the ddl automatically
+-- In your INSERT statements, include column 'id' and use value hibernate_sequence.nextval - see data.sql
 CREATE SEQUENCE HIBERNATE_SEQUENCE
    MINVALUE 1
    MAXVALUE 9999999999999999
